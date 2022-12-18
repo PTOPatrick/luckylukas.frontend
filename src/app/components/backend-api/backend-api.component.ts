@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { SteamAccount } from 'src/app/models/steam.account';
 import { SteamService } from 'src/app/services/steam.service';
-import { environment as env } from 'src/environments/environment';
 
 @Component({
   selector: 'app-backend-api',
@@ -10,15 +9,19 @@ import { environment as env } from 'src/environments/environment';
   styleUrls: ['./backend-api.component.css']
 })
 export class BackendApiComponent implements OnInit {
-  accounts: SteamAccount[] = new Array<SteamAccount>();
+  accounts: any = null;
   
   constructor(private http: HttpClient, private steamService: SteamService) { }
 
-  ngOnInit(): void {
-    this.accounts = this.steamService.getSteamAccounts();
+  ngOnInit(): void { 
+    this.steamService.getSteamAccounts().subscribe((accounts: SteamAccount[]) => {
+      this.accounts = accounts;
+    });
   }
 
   getAccounts(): void {
-    this.accounts = this.steamService.getSteamAccounts();
+    this.steamService.getSteamAccounts().subscribe((accounts: SteamAccount[]) => {
+      this.accounts = accounts;
+    });
   }
 }

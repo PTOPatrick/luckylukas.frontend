@@ -14,13 +14,7 @@ export class SteamService {
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
-  getSteamAccounts(): SteamAccount[] {
-    this.http.get<SteamAccount[]>(this.baseUrl).subscribe((accounts: SteamAccount[]) => {
-      if (accounts instanceof Array<SteamAccount>) {
-        this.accounts = accounts;
-      }
-    });
-
-    return this.accounts;
+  getSteamAccounts(): Observable<SteamAccount[]> {
+    return this.http.get<SteamAccount[]>(this.baseUrl);
   }
 }

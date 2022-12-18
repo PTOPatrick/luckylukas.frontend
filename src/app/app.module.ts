@@ -12,6 +12,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { BackendApiComponent } from './components/backend-api/backend-api.component';
 import { HomeComponent } from './components/home/home.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
         allowedList: [`${env.auth.serverUrl}api/steamaccount`]
       }
     }),
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }
