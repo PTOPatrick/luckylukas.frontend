@@ -29,7 +29,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     AuthModule.forRoot({
       ...env.auth,
       httpInterceptor: {
-        allowedList: [`${env.auth.serverUrl}/api/steamaccount`]
+        allowedList: [`${env.auth.serverUrl}api/steamaccount`]
       }
     }),
     HttpClientModule
