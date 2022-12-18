@@ -9,6 +9,9 @@ import { LoginButtonComponent } from './components/login-button/login-button.com
 import { NavComponent } from './components/nav/nav.component';
 import { LogoutButtonComponent } from './components/logout-button/logout-button.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { BackendApiComponent } from './components/backend-api/backend-api.component';
+import { HomeComponent } from './components/home/home.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,9 @@ import { ProfileComponent } from './components/profile/profile.component';
     LoginButtonComponent,
     NavComponent,
     LogoutButtonComponent,
-    ProfileComponent
+    ProfileComponent,
+    BackendApiComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -25,6 +30,7 @@ import { ProfileComponent } from './components/profile/profile.component';
       domain: env.auth.domain,
       clientId: env.auth.clientId
     }),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

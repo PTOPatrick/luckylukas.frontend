@@ -1,5 +1,1 @@
-<div  *ngIf="auth.isLoading$ | async" class="spinner-border text-primary" role="status">
-    <span class="sr-only"></span>
-</div>
-<app-nav *ngIf="(auth.isLoading$ | async) === false"></app-nav>
-<app-profile *ngIf="auth.isAuthenticated$ | async"></app-profile>
+<app-home></app-home>
