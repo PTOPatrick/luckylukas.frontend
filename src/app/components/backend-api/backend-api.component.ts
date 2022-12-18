@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { SteamAccount } from 'src/app/models/steam.account';
 import { SteamService } from 'src/app/services/steam.service';
 import { environment as env } from 'src/environments/environment';
 
@@ -9,15 +10,15 @@ import { environment as env } from 'src/environments/environment';
   styleUrls: ['./backend-api.component.css']
 })
 export class BackendApiComponent implements OnInit {
-  message: string = "";
-
+  accounts: SteamAccount[] = new Array<SteamAccount>();
+  
   constructor(private http: HttpClient, private steamService: SteamService) { }
 
   ngOnInit(): void {
-    this.steamService.getSteamAccounts();
+    this.accounts = this.steamService.getSteamAccounts();
   }
 
   getAccounts(): void {
-    this.steamService.getSteamAccounts();
+    this.accounts = this.steamService.getSteamAccounts();
   }
 }

@@ -8,6 +8,7 @@ import { AuthService } from '@auth0/auth0-angular';
 })
 export class ProfileComponent implements OnInit {
   profileJson: string = "";
+
   constructor(public auth: AuthService) { }
 
   ngOnInit(): void {
@@ -15,5 +16,4 @@ export class ProfileComponent implements OnInit {
       this.profileJson = JSON.stringify(profile);
     });
   }
-
 }

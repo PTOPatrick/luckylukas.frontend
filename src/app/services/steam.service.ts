@@ -1,24 +1,47 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { AuthService } from '@auth0/auth0-angular';
+import { Observable, map } from 'rxjs';
 import { environment as env} from 'src/environments/environment';
+import { SteamAccount } from '../models/steam.account';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SteamService {
   baseUrl: string = env.auth.serverUrl + 'api/steamaccount';
-  
-  constructor(private http: HttpClient) { }
+  accounts: SteamAccount[] = new Array<SteamAccount>();
 
-  getSteamAccounts(): void {
-    this.http.get(this.baseUrl, { responseType: 'text' }).subscribe({
-      next(accounts) {
-        console.log(accounts)
-      },
-      error(msg) {
-        console.log(msg)
+  constructor(private http: HttpClient, private auth: AuthService) { }
+
+  setAuthToken(): void {
+    this.auth.getAccessTokenSilently().subscribe((token) => {
+      sessionStorage.setItem('token', token);
+    });
+  }
+
+  getSteamAccounts(): SteamAccount[] {
+    // get token from auth0
+    let token = sessionStorage.getItem('token');
+    while(!token) {
+      this.setAuthToken();
+      token = sessionStorage.getItem('token');
+    }
+
+    // use token for authorization
+    const headers: any = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
+    const options = {
+      headers: headers
+    }
+    this.http.get<SteamAccount[]>(this.baseUrl, options).subscribe((accounts: SteamAccount[]) => {
+      if (accounts instanceof Array<SteamAccount>) {
+        this.accounts = accounts;
       }
     });
+    
+    return this.accounts;
   }
 }

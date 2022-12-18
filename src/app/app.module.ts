@@ -4,14 +4,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment as env } from 'src/environments/environment';
-import { AuthModule } from '@auth0/auth0-angular';
+import { AuthModule, AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { LoginButtonComponent } from './components/login-button/login-button.component';
 import { NavComponent } from './components/nav/nav.component';
 import { LogoutButtonComponent } from './components/logout-button/logout-button.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { BackendApiComponent } from './components/backend-api/backend-api.component';
 import { HomeComponent } from './components/home/home.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -27,12 +27,16 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     AuthModule.forRoot({
-      domain: env.auth.domain,
-      clientId: env.auth.clientId
+      ...env.auth,
+      httpInterceptor: {
+        allowedList: [`${env.auth.serverUrl}/api/steamaccount`]
+      }
     }),
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

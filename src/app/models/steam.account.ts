@@ -1,8 +1,8 @@
 export interface SteamAccount {
-    name: string;
-    csRank: string;
-    owner: string;
-    created: Date;
-    changed: Date;
-    isBanned: boolean;
+    Name: string;
+    CsRank: string;
+    Owner: string;
+    Created: Date;
+    Changed: Date;
+    IsBanned: boolean;
 }
