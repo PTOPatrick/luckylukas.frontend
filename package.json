@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 3000",
-    "build": "ng build",
+    "build:prod": "ng build --configuration production --base-href https://PTOPatrick.github.io/luckylukas.frontend/",
+    "test:headless": "ng test --watch=false --browsers=ChromeHeadless",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
