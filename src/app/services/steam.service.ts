@@ -33,7 +33,8 @@ export class SteamService {
     };
     this.http.post<any>(this.baseUrl, JSON.stringify(account), { 'headers': headers }).subscribe({
       next(bla) {
-        console.log(bla);        
+        console.log(bla);
+        console.log(bla);
       },
       error(msg) {
         console.log(msg);        
