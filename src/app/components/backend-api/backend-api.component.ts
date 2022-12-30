@@ -9,7 +9,7 @@ import { SteamService } from 'src/app/services/steam.service';
   styleUrls: ['./backend-api.component.css']
 })
 export class BackendApiComponent implements OnInit {
-  accounts: any = null;
+  accounts: SteamAccount[] = [];
   
   constructor(private http: HttpClient, private steamService: SteamService) { }
 
@@ -23,5 +23,9 @@ export class BackendApiComponent implements OnInit {
     this.steamService.getSteamAccounts().subscribe((accounts: SteamAccount[]) => {
       this.accounts = accounts;
     });
+  }
+
+  addSteamAccount(): void {
+    this.steamService.addSteamAccount();
   }
 }

@@ -17,4 +17,37 @@ export class SteamService {
   getSteamAccounts(): Observable<SteamAccount[]> {
     return this.http.get<SteamAccount[]>(this.baseUrl);
   }
+
+  addSteamAccount(): void {
+    var headers: any = { 
+      'content-type': 'application/json'
+    }  
+    var account: any = {
+      "AccountName": this.makeid(10), 
+      "Name": this.makeid(8), 
+      "CsRank": "silver 1", 
+      "Owner": "lukas", 
+      "Created": new Date(), 
+      "Changed": new Date(), 
+      "IsBanned": false
+    };
+    this.http.post<any>(this.baseUrl, JSON.stringify(account), { 'headers': headers }).subscribe({
+      next(bla) {
+        console.log(bla);        
+      },
+      error(msg) {
+        console.log(msg);        
+      }
+    });
+  }
+
+  makeid(length: number): string {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
 }
